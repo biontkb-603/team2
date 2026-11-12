@@ -4,6 +4,7 @@ import Layout from './components/Layout'
 import ComponentShowcase from './pages/ComponentShowcase'
 import AddIngredient from './pages/AddIngredient'
 import AddPhoto from './pages/AddPhoto'
+import Favorites from './pages/Favorites'
 import FridgeList from './pages/FridgeList'
 import FridgeStatus from './pages/FridgeStatus'
 import Home from './pages/Home'
@@ -25,6 +26,7 @@ const PAGES: Record<string, ReactElement> = {
   '/recommend': <Recommend />,
   '/shopping': <Shopping />,
   '/mypage': <MyPage />,
+  '/mypage/favorites': <Favorites />,
   '/recommend/:id': <RecipeDetail />,
   '/fridge': <FridgeList />,
   '/fridge/status': <FridgeStatus />,

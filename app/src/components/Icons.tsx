@@ -151,3 +151,9 @@ export const GearIcon = (p: SVGProps<SVGSVGElement>) => (
     <circle cx="12" cy="12" r="3" />
   </Base>
 )
+
+export const ChevronDownIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="m5 9 7 7 7-7" />
+  </Base>
+)
