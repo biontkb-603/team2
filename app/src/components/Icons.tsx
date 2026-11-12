@@ -123,3 +123,10 @@ export const MinusIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M5 12h14" />
   </Base>
 )
+
+export const CameraIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.2l1.3-2h6l1.3 2h2.2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-9Z" />
+    <circle cx="12" cy="13" r="3.4" />
+  </Base>
+)
