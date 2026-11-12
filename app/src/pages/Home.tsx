@@ -27,15 +27,15 @@ export default function Home() {
   const today = todayRecipeIds.map((id) => recipes.find((r) => r.id === id)).filter((r) => r !== undefined)
 
   return (
-    <div className="px-6 pb-10">
-      <header className="flex h-[50px] items-center justify-between pt-6">
+    <div className="px-[22px] pb-10">
+      <header className="flex h-[50px] items-center justify-between px-[3px] pt-6">
         <span className="text-[26px] font-extrabold text-primary">마냉이</span>
-        <button type="button" onClick={toast.comingSoon} aria-label="알림" className="mr-1 p-1">
+        <button type="button" onClick={toast.comingSoon} aria-label="알림" className="mr-[-1px] p-1">
           <BellIcon width={26} height={26} />
         </button>
       </header>
 
-      <h1 className="mt-[38px] text-[25px] font-bold leading-8">
+      <h1 className="mt-[38px] px-[3px] text-[25px] font-bold leading-8">
         안녕하세요!
         <br />
         오늘도 마냉이와 함께
@@ -80,7 +80,7 @@ export default function Home() {
         )}
       </section>
 
-      <div className="mt-[22px] flex items-center justify-between">
+      <div className="mt-[22px] flex items-center justify-between px-[3px]">
         <h2 className="text-[20px] font-bold">오늘의 추천</h2>
         <Link to="/recommend" className="text-[14px] text-ink-muted">
           더보기 &gt;
