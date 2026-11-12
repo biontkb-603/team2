@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import food from '../assets/food.jpg'
 import Dialog from '../components/Dialog'
 import { BellIcon, ChevronRightIcon, FridgeIcon, WarningIcon } from '../components/Icons'
@@ -12,9 +12,9 @@ const POPUP_KEY = 'mynaengi.fridgeLinkPopup'
 
 // 화면 6·7: 홈. 6은 7 위에 "냉장고 연동하기" 팝업이 뜬 모습이다.
 // 오픈 이슈(기획서 F3): 팝업을 다시 띄우는 주기 → 가정: 브라우저 세션당 한 번.
+// 냉장고 연동(F6)은 범위 밖이라 [연동하러 가기]는 팝업을 닫고 "곧 지원 예정"을 띄운다.
 // 오픈 이슈(F3-06): 알림 종 아이콘의 이동 화면 → 가정: "곧 지원 예정" 안내.
 export default function Home() {
-  const navigate = useNavigate()
   const toast = useToast()
   const [popup, setPopup] = useState(() => !hasSeen(POPUP_KEY))
 
@@ -121,7 +121,7 @@ export default function Home() {
           onCancel={closePopup}
           onConfirm={() => {
             closePopup()
-            navigate('/mypage/fridge-link')
+            toast.comingSoon()
           }}
         />
       )}

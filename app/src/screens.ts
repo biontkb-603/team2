@@ -1,6 +1,7 @@
 // 시안 화면 ↔ 라우트 표. 라우트·탭 표시·"<" 돌아갈 곳을 한 곳에서 정한다.
 // no: 시안 화면 번호(task.md의 화면 표와 같음). 같은 화면의 다른 상태(3, 5, 7)와
-//     마이페이지 위 팝업(25), "안내만" 화면(15, 16)은 별도 라우트를 만들지 않는다.
+//     마이페이지 위 팝업(25), "안내만" 화면(15, 16, 18, 19, 21, 24)은 별도 라우트를 만들지 않는다.
+//     안내만 화면의 진입점(버튼·메뉴)을 누르면 "곧 지원 예정" 토스트가 뜬다.
 // tab: true면 하단 탭이 보이는 화면(시안 기준).
 // back: 값이 있으면 좌상단 "<"가 보이고, 이전 기록이 없을 때(주소로 바로 진입) 이 경로로 간다.
 export type Screen = {
@@ -25,11 +26,7 @@ export const SCREENS: Screen[] = [
   // 15(가격 결과)·16(장바구니)은 "안내만"이라 화면이 없고, 14의 장바구니 아이콘·버튼이 "곧 지원 예정"을 띄운다.
   { no: '14', path: '/shopping', title: '장보기', tab: true },
   { no: '17', path: '/mypage', title: '마이페이지', tab: true },
-  { no: '18', path: '/mypage/profile', title: '내 정보 수정', tab: false, back: '/mypage' },
-  { no: '19', path: '/mypage/taste', title: '내 취향', tab: false, back: '/mypage' },
   { no: '20', path: '/mypage/favorites', title: '찜한 레시피', tab: true, back: '/mypage' },
-  { no: '21', path: '/mypage/fridge-link', title: '냉장고 연동하기', tab: false, back: '/mypage' },
   { no: '22', path: '/mypage/notifications', title: '알림 설정', tab: false, back: '/mypage' },
   { no: '23', path: '/mypage/notices', title: '공지사항', tab: false, back: '/mypage' },
-  { no: '24', path: '/mypage/community', title: '커뮤니티', tab: false, back: '/mypage' },
 ]

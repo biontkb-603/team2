@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Recommend from './pages/Recommend'
 import RecipeDetail from './pages/RecipeDetail'
+import MyPage from './pages/MyPage'
 import Placeholder from './pages/Placeholder'
 import Shopping from './pages/Shopping'
 import Signup from './pages/Signup'
@@ -23,6 +24,7 @@ const PAGES: Record<string, ReactElement> = {
   '/login': <Login />,
   '/recommend': <Recommend />,
   '/shopping': <Shopping />,
+  '/mypage': <MyPage />,
   '/recommend/:id': <RecipeDetail />,
   '/fridge': <FridgeList />,
   '/fridge/status': <FridgeStatus />,
