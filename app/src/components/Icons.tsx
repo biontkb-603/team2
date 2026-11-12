@@ -117,3 +117,9 @@ export const PlusIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M12 5v14M5 12h14" />
   </Base>
 )
+
+export const MinusIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M5 12h14" />
+  </Base>
+)

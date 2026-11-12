@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import ComponentShowcase from './pages/ComponentShowcase'
+import AddIngredient from './pages/AddIngredient'
 import FridgeList from './pages/FridgeList'
 import FridgeStatus from './pages/FridgeStatus'
 import Home from './pages/Home'
@@ -18,6 +19,7 @@ const PAGES: Record<string, ReactElement> = {
   '/login': <Login />,
   '/fridge': <FridgeList />,
   '/fridge/status': <FridgeStatus />,
+  '/fridge/add': <AddIngredient />,
   '/signup': <Signup />,
   '/signup/account': <SignupAccount />,
 }
