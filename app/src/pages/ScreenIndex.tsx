@@ -17,6 +17,7 @@ export default function ScreenIndex() {
           </li>
         ))}
       </ul>
+      <Link to="/_components" className="mt-6 block text-sm font-bold text-primary">공통 컴포넌트 보기 →</Link>
     </section>
   )
 }

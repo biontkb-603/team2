@@ -54,3 +54,24 @@ export const UserIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M4.5 20.5c.8-4 3.7-6 7.5-6s6.7 2 7.5 6" />
   </Base>
 )
+
+export const ChevronRightIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="m9 5 7 7-7 7" />
+  </Base>
+)
+
+export const EyeIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </Base>
+)
+
+export const EyeOffIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M2.5 12S6 5.5 12 5.5c1.6 0 3 .5 4.2 1.2M21.5 12S18 18.5 12 18.5c-1.6 0-3-.5-4.2-1.2" />
+    <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+    <path d="M4 4l16 16" />
+  </Base>
+)

@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
+import ComponentShowcase from './pages/ComponentShowcase'
 import Placeholder from './pages/Placeholder'
 import ScreenIndex from './pages/ScreenIndex'
 import { SCREENS } from './screens'
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
         handle: { tab: s.tab },
       })),
       { path: '/_screens', element: <ScreenIndex /> },
+      { path: '/_components', element: <ComponentShowcase /> },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },
