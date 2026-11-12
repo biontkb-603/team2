@@ -1,9 +1,16 @@
+import type { ReactElement } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import ComponentShowcase from './pages/ComponentShowcase'
+import Login from './pages/Login'
 import Placeholder from './pages/Placeholder'
 import ScreenIndex from './pages/ScreenIndex'
 import { SCREENS } from './screens'
+
+// 완성된 화면은 여기에 등록한다. 없는 화면은 임시 화면(Placeholder)이 대신한다.
+const PAGES: Record<string, ReactElement> = {
+  '/login': <Login />,
+}
 
 // 시안 화면별 라우트는 screens.ts 표에서 만든다. 화면이 완성되면 element만 실제 화면으로 바꾼다.
 const router = createBrowserRouter([
@@ -12,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       ...SCREENS.map((s) => ({
         path: s.path,
-        element: <Placeholder screen={s} />,
+        element: PAGES[s.path] ?? <Placeholder screen={s} />,
         handle: { tab: s.tab },
       })),
       { path: '/_screens', element: <ScreenIndex /> },

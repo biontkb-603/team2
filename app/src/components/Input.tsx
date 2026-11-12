@@ -19,8 +19,8 @@ export default function Input({ label, variant = 'outline', leading, trailing, h
 
   const box =
     variant === 'filled'
-      ? 'border border-line/60 bg-field rounded-2xl'
-      : `border border-line rounded-xl ${disabled ? 'bg-field' : 'bg-white'}`
+      ? 'h-[58px] border border-line/60 bg-field rounded-2xl'
+      : `h-14 border border-line rounded-xl ${disabled ? 'bg-field' : 'bg-white'}`
 
   return (
     <div className={className}>
@@ -29,7 +29,7 @@ export default function Input({ label, variant = 'outline', leading, trailing, h
           {label}
         </label>
       )}
-      <div className={`flex h-14 items-center gap-3 px-4 focus-within:border-primary ${box}`}>
+      <div className={`flex items-center gap-3 px-4 focus-within:border-primary ${box}`}>
         {leading && <span className="text-ink-nav">{leading}</span>}
         <input
           id={id}

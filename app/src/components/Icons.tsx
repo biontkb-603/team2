@@ -75,3 +75,18 @@ export const EyeOffIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M4 4l16 16" />
   </Base>
 )
+
+export const GlobeIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <path d="M12 3c2.6 2.4 4 5.5 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.5-4-9s1.4-6.6 4-9Z" />
+  </Base>
+)
+
+export const LockIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <rect x="5" y="10.5" width="14" height="10" rx="2.2" />
+    <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" />
+  </Base>
+)
