@@ -137,3 +137,10 @@ export const BowlIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M8.5 4.5c-.8 1.2.8 2.2 0 3.4M12 3.5c-.8 1.2.8 2.2 0 3.4M15.5 4.5c-.8 1.2.8 2.2 0 3.4" />
   </Base>
 )
+
+export const CheckCircleIcon = (p: SVGProps<SVGSVGElement>) => (
+  <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" {...p}>
+    <circle cx="13" cy="13" r="13" fill="currentColor" />
+    <path d="m7.5 13.3 3.8 3.8 7.2-7.6" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)

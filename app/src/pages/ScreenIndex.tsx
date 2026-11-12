@@ -9,7 +9,7 @@ export default function ScreenIndex() {
       <ul className="mt-4 divide-y divide-line">
         {SCREENS.map((s) => (
           <li key={s.path}>
-            <Link to={s.path.replace(':id', '1')} className="flex items-center gap-3 py-3 text-sm">
+            <Link to={s.path.replace(':id', 'tuna-mayo')} className="flex items-center gap-3 py-3 text-sm">
               <span className="w-10 font-bold text-primary">{s.no}</span>
               <span className="flex-1">{s.title}</span>
               <span className="text-xs text-ink-muted">{s.tab ? '탭 있음' : '탭 없음'}</span>
