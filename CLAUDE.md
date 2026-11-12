@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-**마냉이 (My Fridge)**, a Korean-language mobile-width web app. Planning and design prep are done (T0-01 to T0-05); the app skeleton exists in `app/` and the screens are not built yet. Progress and the next task are tracked in `task.md`. Git remote is `origin` (GitHub, `biontkb-603/team2`), default branch `main`.
+**마냉이 (My Fridge)**, a Korean-language mobile-width web app. Preparation (T0) and the UI phase (U-01 to U-25, screens built from fixed mock data) are done; the feature phase (F-01 to F-18: storage, D-day calculation, recommendation, auth) has not started, so every screen still reads `app/src/data/mock.ts`. Progress and the next task are tracked in `task.md`. Git remote is `origin` (GitHub, `biontkb-603/team2`), default branch `main`.
+
+The app manages fridge ingredients and expiry dates, recommends recipes based on owned ingredients, and connects missing ingredients to price comparison across 4 shopping malls.
 
 ## Commands
 
@@ -20,11 +22,13 @@ npm test           # vitest run (single file: npx vitest run src/lib/<name>.test
 
 ## Architecture
 
-- Stack: Vite 8, React 19, TypeScript, Tailwind CSS 4 (`@tailwindcss/vite`), React Router 7, Vitest. No state library, no server; data is seed JSON plus browser storage behind one `storage` module.
-- `app/src/index.css`: Tailwind `@theme` is the only place colors and fonts are defined. Values come from `design/tokens.md`; use the token names (`bg-primary`, `text-danger`, ...), not raw hex.
-- `app/src/App.tsx`: router and the centered 430px-max mobile frame. Screen routes are added in U-02.
-- `app/src/pages` (screens, numbered by the mockup), `components` (shared UI), `data` (mock/seed data), `lib` (pure functions such as D-day and recommendation, with unit tests).
-- Only the D-day and recommendation functions get unit tests; screens are checked by hand against `design/screen-NN.png`.
+- Stack: Vite 8, React 19, TypeScript, Tailwind CSS 4 (`@tailwindcss/vite`), React Router 7, Vitest. No state library, no server; data is seed JSON plus browser storage behind one `storage` module (not written yet).
+- `app/src/index.css`: Tailwind `@theme` is the only place colors and fonts are defined. Values come from `design/tokens.md`; use the token names (`bg-primary`, `text-danger`, ...), not raw hex. The Pretendard font is loaded by a `<link>` in `index.html` (a CSS `@import` placed after Tailwind's is silently ignored).
+- `app/src/screens.ts`: the mockup-screen to route table (path, title, whether the bottom tab bar shows, where "<" goes when a screen is opened directly). `App.tsx` builds the router from it and maps finished screens in its `PAGES` table; screens not in `PAGES` render `Placeholder`. `components/Layout.tsx` is the mobile frame (max 430px) and shows the tab bar from each route's `handle.tab`.
+- `app/src/pages` (one file per screen), `components` (shared UI: `TopBar`, `Button`, `Input`, `ListRow`, `DdayBadge`, `Dialog`, `Switch`, `Toast` with `useToast().comingSoon()`, ...), `data/mock.ts` (sample data copied from the mockups, marked "시안에 없음" where invented), `lib` (pure functions with unit tests: `dday.ts`, `malls.ts`), `types.ts`.
+- "안내만" rule: features outside the minimal scope keep their entry point (button or menu row) as in the mockup and show the "곧 지원 예정" toast when tapped, but their screen is not built and has no route (mockup screens 15, 16, 18, 19, 21, 24). Screen 11 is built only because its entry is a tab inside screen 10.
+- Dev-only pages `/_screens` (screen list) and `/_components` (component showcase) exist for checking the UI; remove them in the final polish step (M).
+- Tests: only pure functions (D-day rules, mall URLs, mock-data consistency with the mockup numbers) are unit-tested. Screens are checked by hand against `design/screen-NN.png`; when comparing, capture at 408x880 and also check 360x640 for anything running outside the frame.
 
 ## Git workflow
 
@@ -32,8 +36,6 @@ npm test           # vitest run (single file: npx vitest run src/lib/<name>.test
 - One commit per finished task ID. Message format: `U-05: 로그인 화면 구현` (task ID, colon, short Korean summary).
 - Commit `task.md` updates together with the work they describe.
 - Do not commit or push unless asked. Do not commit `node_modules` or `dist` (covered by `app/.gitignore`).
-
-The app manages fridge ingredients and expiry dates, recommends recipes based on owned ingredients, and connects missing ingredients to price comparison across 4 shopping malls.
 
 ## Source documents
 
