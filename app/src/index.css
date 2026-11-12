@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+/* 디자인 토큰: design/tokens.md 와 같은 값. 색은 이 파일에서만 정의한다. */
+@theme {
+  --font-sans: "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+
+  --color-primary: #0c7b75;
+  --color-primary-dark: #085f59;
+  --color-primary-mid: #5eb7b1;
+  --color-primary-light: #bee2e0;
+  --color-primary-tint: #e2f2f1;
+  --color-primary-faint: #f0f9f8;
+  --color-danger: #c20039;
+  --color-danger-tint: #fef0f0;
+  --color-warn: #854a01;
+  --color-warn-tint: #fef3df;
+  --color-ink: #1a2a25;
+  --color-ink-muted: #3f5452;
+  --color-ink-nav: #52605c;
+  --color-placeholder: #737574;
+  --color-line: #d9dede;
+  --color-field: #f6f8f7;
+  --color-disabled: #e5ebeb;
+  --color-switch-off: #cbd7d7;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #e9eeee; /* 데스크톱에서 프레임 바깥 */
+}

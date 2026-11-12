@@ -4,7 +4,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-This is the planning stage of **마냉이 (My Fridge)**, a Korean-language mobile app. No source code, build system, or tests exist yet, and the folder is not a git repository. When code is added, update this file with build, lint, and test commands and the architecture.
+**마냉이 (My Fridge)**, a Korean-language mobile-width web app. Planning and design prep are done (T0-01 to T0-05); the app skeleton exists in `app/` and the screens are not built yet. Progress and the next task are tracked in `task.md`. Git remote is `origin` (GitHub, `biontkb-603/team2`), default branch `main`.
+
+## Commands
+
+Run from `app/` (Node 24, npm 11):
+
+```
+npm install        # first time only
+npm run dev        # dev server (Vite)
+npm run build      # tsc -b && vite build
+npm run lint       # oxlint
+npm test           # vitest run (single file: npx vitest run src/lib/<name>.test.ts)
+```
+
+## Architecture
+
+- Stack: Vite 8, React 19, TypeScript, Tailwind CSS 4 (`@tailwindcss/vite`), React Router 7, Vitest. No state library, no server; data is seed JSON plus browser storage behind one `storage` module.
+- `app/src/index.css`: Tailwind `@theme` is the only place colors and fonts are defined. Values come from `design/tokens.md`; use the token names (`bg-primary`, `text-danger`, ...), not raw hex.
+- `app/src/App.tsx`: router and the centered 430px-max mobile frame. Screen routes are added in U-02.
+- `app/src/pages` (screens, numbered by the mockup), `components` (shared UI), `data` (mock/seed data), `lib` (pure functions such as D-day and recommendation, with unit tests).
+- Only the D-day and recommendation functions get unit tests; screens are checked by hand against `design/screen-NN.png`.
+
+## Git workflow
+
+- Work on a branch per task group, not on `main`: `feat/<task-id>-<short-name>` (e.g. `feat/U-05-login`), `docs/...` for documents, `fix/...` for fixes. Merge to `main` through a PR.
+- One commit per finished task ID. Message format: `U-05: 로그인 화면 구현` (task ID, colon, short Korean summary).
+- Commit `task.md` updates together with the work they describe.
+- Do not commit or push unless asked. Do not commit `node_modules` or `dist` (covered by `app/.gitignore`).
 
 The app manages fridge ingredients and expiry dates, recommends recipes based on owned ingredients, and connects missing ingredients to price comparison across 4 shopping malls.
 
@@ -13,13 +40,19 @@ The app manages fridge ingredients and expiry dates, recommends recipes based on
 - `마냉이 1차.pdf`: 25 UI screen mockups (the "마냉이 회원가입" screen set). It is the source of truth for what the screens show.
 - `마냉이_기능별_기획서.pdf` (dated 2026-11-09): the feature spec built from those 25 screens. It groups them into features F1–F12, and each requirement has an ID (e.g. `F4-06`) linked to screen numbers.
 
-- `마냉이_개발계획.md` (2026-11-10): the development plan. It sets the phased scope (MVP / phase 2 / phase 3), sprint schedule, proposed stack, and the legal and store checklist for launch. Check it before implementing a feature. For example, F6 fridge integration, F8 price comparison and F12 community are not in the MVP.
+- `마냉이_개발계획.md` (2026-11-10): the development plan. It sets the phased scope (MVP / phase 2 / phase 3), sprint schedule, proposed stack, and the legal and store checklist for launch. Check it before implementing a feature. The project is fictional and the plan is a minimal demo build (about 5 weeks, no taste settings, profile edit or ID/PW recovery); only the first MVP is in scope and it is delivered as a mobile-width web app only (no native iOS/Android), with no server or database (seed JSON plus browser storage): F6 fridge integration, F8 price comparison/cart (only a shortcut to mall search is in), F12 community and photo AI recognition are out, and external services (phone verification, SNS login, push) are mocked.
 
-Reading the PDFs: the Read tool cannot render them on this machine (no `pdftoppm`). Extract text instead, and always pass `-enc UTF-8`, or the Korean text is lost:
+Mockup images: `design/screen-01.png` to `screen-25.png` (100 dpi, one per mockup screen, Read can view them) were extracted from `마냉이 1차.pdf` with `pdftoppm -png -r 100`. Per-screen notes are in the table in `task.md`, and colors/components are in `design/tokens.md`.
+
+Reading the spec PDF: the Read tool cannot render PDFs here. Extract text instead, and always pass `-enc UTF-8`, or the Korean text is lost:
 
 ```
 pdftotext -enc UTF-8 -layout "마냉이_기능별_기획서.pdf" <out>.txt
 ```
+
+- `task.md`: the task list and progress log. Update it as you work (mark `[~]` when starting, `[x]` with the date when done, add a progress-log line, record any deviation from the PDF in its "시안 차이 기록" table).
+
+UI rule: follow `마냉이 1차.pdf` as closely as possible. Features that are out of scope still keep their menu entries/buttons visible from the mockup and show a "곧 지원 예정" notice when tapped.
 
 ## Spec conventions
 
@@ -41,6 +74,6 @@ Bottom tab bar (5 tabs, shown after login) and screen numbers:
 | 마이페이지 | 17–25 | F9 my page/profile/taste preferences/saved recipes, F6 smart-fridge Wi-Fi integration (21), F10 notification settings (22), F11 notices (23), F12 community (24), logout (25) |
 
 Rules that apply across features (spec section 14):
-- "Expiring soon" means **within 3 days**. Apply it the same way in home, fridge status, the list, and notifications.
+- "Expiring soon" means **within 3 days**. Apply it the same way in home, fridge status, the list, and notifications. Decided in `마냉이_개발계획.md` section 5: the UI term is "유통기한" (as in the mockups), D ≤ 3 counts as expiring (D-0 shows "오늘까지", past dates show a red "기한 지남" and count as expiring), D ≥ 4 is "여유 있음".
 - Sub-screens return to the previous screen with a top-left "<" button. The current bottom tab is highlighted.
 - The visual theme is teal (녹청색), with uniform color rules for buttons, tabs, and badges.
