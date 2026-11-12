@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Recommend from './pages/Recommend'
 import RecipeDetail from './pages/RecipeDetail'
 import MyPage from './pages/MyPage'
+import Notices from './pages/Notices'
 import Notifications from './pages/Notifications'
 import Placeholder from './pages/Placeholder'
 import Shopping from './pages/Shopping'
@@ -29,6 +30,7 @@ const PAGES: Record<string, ReactElement> = {
   '/mypage': <MyPage />,
   '/mypage/favorites': <Favorites />,
   '/mypage/notifications': <Notifications />,
+  '/mypage/notices': <Notices />,
   '/recommend/:id': <RecipeDetail />,
   '/fridge': <FridgeList />,
   '/fridge/status': <FridgeStatus />,
