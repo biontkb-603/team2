@@ -8,6 +8,7 @@ import FridgeList from './pages/FridgeList'
 import FridgeStatus from './pages/FridgeStatus'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Recommend from './pages/Recommend'
 import Placeholder from './pages/Placeholder'
 import Signup from './pages/Signup'
 import SignupAccount from './pages/SignupAccount'
@@ -18,6 +19,7 @@ import { SCREENS } from './screens'
 const PAGES: Record<string, ReactElement> = {
   '/': <Home />,
   '/login': <Login />,
+  '/recommend': <Recommend />,
   '/fridge': <FridgeList />,
   '/fridge/status': <FridgeStatus />,
   '/fridge/add': <AddIngredient />,

@@ -130,3 +130,10 @@ export const CameraIcon = (p: SVGProps<SVGSVGElement>) => (
     <circle cx="12" cy="13" r="3.4" />
   </Base>
 )
+
+export const BowlIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M3.5 12.5h17a8.5 8.5 0 0 1-8.5 8 8.5 8.5 0 0 1-8.5-8Z" />
+    <path d="M8.5 4.5c-.8 1.2.8 2.2 0 3.4M12 3.5c-.8 1.2.8 2.2 0 3.4M15.5 4.5c-.8 1.2.8 2.2 0 3.4" />
+  </Base>
+)

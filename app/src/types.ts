@@ -27,6 +27,8 @@ export type Recipe = {
   reason: string
   /** 부족한 재료 수. 0이면 "재료 충분" */
   missing: number
+  /** 유통기한 임박 재료를 쓰는 레시피인가(추천 탭의 "유통기한 임박 재료" 필터). 실제로는 F-11 추천 규칙이 계산한다. */
+  usesExpiring: boolean
 }
 
 export type Notice = { id: string; title: string; date: string; body: string; isNew: boolean }

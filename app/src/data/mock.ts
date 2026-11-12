@@ -51,6 +51,7 @@ export const recipes: Recipe[] = [
     ],
     reason: '보유 재료로 가능',
     missing: 0,
+    usesExpiring: false,
   },
   {
     id: 'tofu-kimchi',
@@ -66,6 +67,7 @@ export const recipes: Recipe[] = [
     steps: ['두부를 먹기 좋게 썰어 끓는 물에 데쳐요.', '팬에 김치와 대파를 넣고 볶아요.', '두부와 볶은 김치를 함께 담아요.'],
     reason: '두부 임박 재료 사용',
     missing: 0,
+    usesExpiring: true,
   },
   {
     id: 'pa-egg-fried-rice',
@@ -81,6 +83,7 @@ export const recipes: Recipe[] = [
     steps: ['팬에 기름을 두르고 대파를 볶아 파기름을 내요.', '계란을 풀어 스크램블을 만들어요.', '밥을 넣고 볶아 간을 맞춰요.'],
     reason: '대파 임박 재료 사용',
     missing: 0,
+    usesExpiring: true,
   },
   {
     id: 'tofu-zucchini-stew',
@@ -96,6 +99,7 @@ export const recipes: Recipe[] = [
     steps: ['애호박과 양파, 두부를 한입 크기로 썰어요.', '냄비에 물을 붓고 끓으면 재료를 넣어요.', '된장을 풀고 한소끔 더 끓여요.'],
     reason: '두부 임박 재료 사용',
     missing: 0,
+    usesExpiring: true,
   },
   {
     id: 'potato-cream-soup',
@@ -112,6 +116,7 @@ export const recipes: Recipe[] = [
     steps: ['감자와 양파를 얇게 썰어 버터에 볶아요.', '우유를 붓고 감자가 익을 때까지 끓여요.', '곱게 갈아 소금으로 간을 맞춰요.'],
     reason: '우유 임박 재료 사용',
     missing: 1,
+    usesExpiring: true,
   },
   {
     id: 'rolled-omelet',
@@ -127,6 +132,7 @@ export const recipes: Recipe[] = [
     steps: ['계란을 풀고 잘게 썬 대파와 당근을 섞어요.', '약불의 팬에 계란물을 얇게 부어 돌돌 말아요.', '식힌 뒤 먹기 좋게 썰어요.'],
     reason: '보유 재료로 가능',
     missing: 0,
+    usesExpiring: false,
   },
 ]
 
