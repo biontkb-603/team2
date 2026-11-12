@@ -1,0 +1,36 @@
+import { launch, BASE, OUT } from './lib.mjs'
+const b = await launch()
+const p = await b.newPage(); await p.setViewport({ width: 408, height: 880 })
+const base = BASE, wait = ms => new Promise(r => setTimeout(r, ms)), path = () => new URL(p.url()).pathname
+let fail = 0; const ok = (c, m) => { if (!c) { fail++; console.log('FAIL', m) } }
+const dialog = () => p.$('[role=dialog]')
+const clickText = async (t) => { const h = await p.evaluateHandle(t => [...document.querySelectorAll('button')].find(b => b.textContent.trim() === t), t); await h.click() }
+await p.goto(base + '/', { waitUntil: 'networkidle0' })
+ok(!!(await dialog()), 'popup on first visit'); await p.screenshot({ path: OUT + '/h6.png' })
+await clickText('그만 보기'); await wait(150)
+ok(!(await dialog()), 'popup closed by 그만 보기'); await p.screenshot({ path: OUT + '/h7.png' })
+await p.reload({ waitUntil: 'networkidle0' }); ok(!(await dialog()), 'popup not shown again in same session')
+// 새 세션(새 시크릿 컨텍스트)에서 다시 보이고, 바깥 클릭/Esc로 닫힘, 연동하러 가기 이동
+const ctx = await b.createBrowserContext(); const q = await ctx.newPage(); await q.setViewport({ width: 408, height: 880 })
+await q.goto(base + '/', { waitUntil: 'networkidle0' }); ok(!!(await q.$('[role=dialog]')), 'popup in new session')
+await q.mouse.click(200, 60); await wait(150); ok(!(await q.$('[role=dialog]')), 'outside click closes')
+const c2 = await b.createBrowserContext(); const r = await c2.newPage(); await r.setViewport({ width: 408, height: 880 })
+await r.goto(base + '/', { waitUntil: 'networkidle0' }); await r.keyboard.press('Escape'); await wait(150); ok(!(await r.$('[role=dialog]')), 'Esc closes')
+const c3 = await b.createBrowserContext(); const t = await c3.newPage(); await t.setViewport({ width: 408, height: 880 })
+await t.goto(base + '/', { waitUntil: 'networkidle0' })
+const h = await t.evaluateHandle(() => [...document.querySelectorAll('button')].find(b => b.textContent.trim() === '연동하러 가기')); await h.click(); await wait(200)
+ok(!(await t.$('[role=dialog]')) && new URL(t.url()).pathname === '/' && (await t.$eval('[role=status]', e => e.textContent)) === '곧 지원 예정이에요', '연동하러 가기 -> 팝업 닫고 곧 지원 예정 토스트')
+// 홈 내용
+ok((await p.$$eval('section[aria-label="유통기한 임박"] li', l => l.map(e => e.textContent))).join('|') === '대대파1일 남음|두두부2일 남음|우우유3일 남음', 'expiring items')
+ok(await p.$eval('section[aria-label="유통기한 임박"] span.rounded-full', e => e.textContent) === '3', 'badge 3')
+ok((await p.evaluate(() => document.body.innerText)).includes('총 12가지 식재료'), '총 12가지')
+ok((await p.$$eval('a[href^="/recommend/"] span.truncate', l => l.map(e => e.textContent))).join() === '참치마요 덮밥,두부김치', 'today recipes')
+ok((await p.evaluate(() => document.body.innerText.match(/보유 재료로 가능/g)?.length)) === 2, 'both cards 보유 재료로 가능')
+await p.click('a[href="/fridge/status"]'); await wait(150); ok(path() === '/fridge/status', 'card -> status'); await p.goBack(); await wait(150)
+await p.click('a[href="/recommend/tuna-mayo"]'); await wait(150); ok(path() === '/recommend/tuna-mayo', 'recipe card'); await p.goBack(); await wait(150)
+await p.click('a[href="/recommend"]'); await wait(150); ok(path() === '/recommend', '더보기'); await p.goBack(); await wait(150)
+await p.click('button[aria-label="알림"]'); await wait(150); ok((await p.$eval('[role=status]', e => e.textContent)) === '곧 지원 예정이에요', 'bell toast')
+const active = await p.$$eval('nav a', as => as.filter(a => a.className.includes('text-primary')).map(a => a.textContent)); ok(active.join() === '홈', 'home tab active')
+await p.setViewport({ width: 360, height: 640 }); await p.reload({ waitUntil: 'networkidle0' })
+ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'no horizontal overflow at 360')
+console.log(fail ? fail + ' failures' : 'ALL PASS'); process.exitCode = fail ? 1 : 0; await b.close()

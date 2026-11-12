@@ -1,0 +1,22 @@
+import { launch, BASE, OUT } from './lib.mjs'
+const b = await launch()
+const p = await b.newPage(); await p.setViewport({ width: 408, height: 880 })
+const base = BASE, wait = ms => new Promise(r => setTimeout(r, ms)), path = () => new URL(p.url()).pathname
+let fail = 0; const ok = (c, m) => { if (!c) { fail++; console.log('FAIL', m) } }
+await p.goto(base + '/', { waitUntil: 'networkidle0' }); await p.keyboard.press('Escape'); await wait(100)
+await p.click('a[href="/fridge/status"]'); await wait(200)
+ok(path() === '/fridge/status', 'home card -> status')
+await p.screenshot({ path: OUT + '/st.png' })
+ok(await p.$('nav[aria-label="하단 탭"]') === null, 'no tab bar')
+const text = await p.evaluate(() => document.body.innerText)
+for (const t of ['12가지', '3일 이내 임박', '3개', '여유 있음', '9개']) ok(text.includes(t), 'text ' + t)
+const legend = await p.$$eval('ul li', l => l.map(e => e.textContent.replace(/\s+/g, ' ').trim())); ok(legend.join('|') === '냉장7|냉동3|실온2', 'legend ' + legend)
+const flex = await p.$$eval('[role=img] span', s => s.map(e => getComputedStyle(e).flexGrow)); ok(flex.join() === '7,3,2', 'bar ' + flex)
+await p.click('button[aria-label="뒤로 가기"]'); await wait(200); ok(path() === '/', 'back -> home')
+await p.goForward(); await wait(200)
+const h = await p.evaluateHandle(() => [...document.querySelectorAll('button')].find(b => b.textContent.trim() === '식재료 목록 보기')); await h.click(); await wait(200)
+ok(path() === '/fridge', 'list button -> /fridge')
+await p.goto(base + '/fridge/status', { waitUntil: 'networkidle0' }); await p.click('button[aria-label="뒤로 가기"]'); await wait(200); ok(path() === '/', 'direct open back -> home')
+await p.setViewport({ width: 360, height: 640 }); await p.goto(base + '/fridge/status', { waitUntil: 'networkidle0' })
+ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'no horizontal overflow at 360')
+console.log(fail ? fail + ' failures' : 'ALL PASS'); process.exitCode = fail ? 1 : 0; await b.close()

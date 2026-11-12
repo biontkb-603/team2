@@ -1,0 +1,30 @@
+import { launch, BASE, OUT } from './lib.mjs'
+const b = await launch({ args: ['--lang=ko-KR'] })
+const p = await b.newPage(); await p.setViewport({ width: 408, height: 880 })
+const base = BASE, wait = ms => new Promise(r => setTimeout(r, ms)), path = () => new URL(p.url()).pathname
+let fail = 0; const ok = (c, m) => { if (!c) { fail++; console.log('FAIL', m) } }
+const pressed = () => p.$$eval('button[aria-pressed=true]', l => l.map(e => e.textContent.trim()))
+await p.goto(base + '/fridge', { waitUntil: 'networkidle0' })
+const add = await p.evaluateHandle(() => [...document.querySelectorAll('button')].find(b => b.textContent.includes('식재료 추가'))); await add.click(); await wait(200)
+ok(path() === '/fridge/add', 'list -> add'); await p.screenshot({ path: OUT + '/ad.png' })
+ok(await p.$('nav[aria-label="하단 탭"]') === null, 'no tab bar')
+ok((await pressed()).join() === '직접 입력,냉장,개', 'defaults ' + await pressed())
+const click = async t => { const h = await p.evaluateHandle(t => [...document.querySelectorAll('button')].find(b => b.textContent.trim() === t), t); await h.click(); await wait(80) }
+await click('냉동'); await click('팩'); ok((await pressed()).join() === '직접 입력,냉동,팩', 'selection ' + await pressed())
+const amount = () => p.$eval('[aria-live=polite]', e => e.textContent)
+await p.click('button[aria-label="수량 늘리기"]'); await p.click('button[aria-label="수량 늘리기"]'); ok(await amount() === '3', 'plus x2 -> 3')
+for (let i = 0; i < 5; i++) await p.click('button[aria-label="수량 줄이기"]'); ok(await amount() === '1', 'min 1 ' + await amount())
+await p.type('input[autocomplete=off]', '대파'); ok(await p.$eval('input[autocomplete=off]', e => e.value) === '대파', 'name typed')
+await p.$eval('input[type=date]', e => { e.value = '2026-11-20'; e.dispatchEvent(new Event('input', { bubbles: true })) })
+await click('추가하기'); ok(path() === '/fridge', 'submit -> list: ' + path())
+// 탭 전환은 replace: 뒤로 가기는 목록으로
+await p.goto(base + '/fridge', { waitUntil: 'networkidle0' })
+const add2 = await p.evaluateHandle(() => [...document.querySelectorAll('button')].find(b => b.textContent.includes('식재료 추가'))); await add2.click(); await wait(200)
+await click('사진으로 등록'); await wait(150); ok(path() === '/fridge/add/photo', 'photo tab ' + path())
+await p.click('button[aria-label="뒤로 가기"]'); await wait(200); ok(path() === '/fridge', 'back after tab switch -> list: ' + path())
+await p.goto(base + '/fridge/add', { waitUntil: 'networkidle0' }); await p.click('button[aria-label="뒤로 가기"]'); await wait(200); ok(path() === '/fridge', 'direct back -> list')
+await p.setViewport({ width: 360, height: 640 }); await p.goto(base + '/fridge/add', { waitUntil: 'networkidle0' })
+ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'no horizontal overflow at 360')
+const m = await p.evaluate(() => { const m = document.querySelector('main'); const btn = [...document.querySelectorAll('button')].find(b => b.textContent.trim() === '추가하기').getBoundingClientRect(); return { sh: m.scrollHeight, ch: m.clientHeight, btnBottom: btn.bottom, ih: innerHeight } })
+ok(m.btnBottom <= m.ih, 'submit button visible on 640px: ' + JSON.stringify(m))
+console.log(fail ? fail + ' failures' : 'ALL PASS'); process.exitCode = fail ? 1 : 0; await b.close()
