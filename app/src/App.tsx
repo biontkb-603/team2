@@ -1,21 +1,25 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import Placeholder from './pages/Placeholder'
+import ScreenIndex from './pages/ScreenIndex'
+import { SCREENS } from './screens'
 
-// 탭 5개의 최상위 라우트만 있다. 25개 화면 전체 라우트와 "<" 뒤로가기는 U-02에서 만든다.
+// 시안 화면별 라우트는 screens.ts 표에서 만든다. 화면이 완성되면 element만 실제 화면으로 바꾼다.
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      ...SCREENS.map((s) => ({
+        path: s.path,
+        element: <Placeholder screen={s} />,
+        handle: { tab: s.tab },
+      })),
+      { path: '/_screens', element: <ScreenIndex /> },
+      { path: '*', element: <Navigate to="/" replace /> },
+    ],
+  },
+])
+
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Placeholder title="홈" />} />
-          <Route path="fridge" element={<Placeholder title="냉장고" />} />
-          <Route path="recommend" element={<Placeholder title="요리 추천" />} />
-          <Route path="shopping" element={<Placeholder title="장보기" />} />
-          <Route path="mypage" element={<Placeholder title="마이페이지" />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  )
+  return <RouterProvider router={router} />
 }
