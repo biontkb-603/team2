@@ -18,6 +18,7 @@ npm run dev        # dev server (Vite)
 npm run build      # tsc -b && vite build
 npm run lint       # oxlint
 npm test           # vitest run (single file: npx vitest run src/lib/<name>.test.ts)
+npm run e2e        # real-Chrome checks of every screen (builds, starts a preview server, runs app/e2e/*.mjs; needs Chrome, see README)
 ```
 
 ## Architecture
@@ -28,6 +29,7 @@ npm test           # vitest run (single file: npx vitest run src/lib/<name>.test
 - `app/src/pages` (one file per screen), `components` (shared UI: `TopBar`, `Button`, `Input`, `ListRow`, `DdayBadge`, `Dialog`, `Switch`, `Toast` with `useToast().comingSoon()`, ...), `data/mock.ts` (sample data copied from the mockups, marked "시안에 없음" where invented), `lib` (pure functions with unit tests: `dday.ts`, `malls.ts`), `types.ts`.
 - "안내만" rule: features outside the minimal scope keep their entry point (button or menu row) as in the mockup and show the "곧 지원 예정" toast when tapped, but their screen is not built and has no route (mockup screens 15, 16, 18, 19, 21, 24). Screen 11 is built only because its entry is a tab inside screen 10.
 - Dev-only pages `/_screens` (screen list) and `/_components` (component showcase) exist for checking the UI; remove them in the final polish step (M).
+- `app/e2e/`: browser check scripts (puppeteer-core) run by `npm run e2e`; `lib.mjs` holds the shared paths, `compare.py` puts a mockup and an app capture side by side. Run `npm run e2e` after changing any screen; a screen change that breaks a check should update the check in the same commit.
 - Tests: only pure functions (D-day rules, mall URLs, mock-data consistency with the mockup numbers) are unit-tested. Screens are checked by hand against `design/screen-NN.png`; when comparing, capture at 408x880 and also check 360x640 for anything running outside the frame.
 
 ## Git workflow
