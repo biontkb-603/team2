@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import ComponentShowcase from './pages/ComponentShowcase'
+import FridgeList from './pages/FridgeList'
 import FridgeStatus from './pages/FridgeStatus'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -15,6 +16,7 @@ import { SCREENS } from './screens'
 const PAGES: Record<string, ReactElement> = {
   '/': <Home />,
   '/login': <Login />,
+  '/fridge': <FridgeList />,
   '/fridge/status': <FridgeStatus />,
   '/signup': <Signup />,
   '/signup/account': <SignupAccount />,

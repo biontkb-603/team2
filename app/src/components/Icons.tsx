@@ -104,3 +104,16 @@ export const WarningIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M12 10v4.5M12 17.4v.1" />
   </Base>
 )
+
+export const SearchIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="m16 16 4.5 4.5" />
+  </Base>
+)
+
+export const PlusIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M12 5v14M5 12h14" />
+  </Base>
+)

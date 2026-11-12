@@ -22,12 +22,12 @@ export default function ListRow({ initial, leading, title, subtitle, trailing, o
       )}
       <span className="min-w-0 flex-1 text-left">
         <span className="block truncate text-[17px] font-bold">{title}</span>
-        {subtitle && <span className="mt-0.5 block truncate text-[13px] text-ink-muted">{subtitle}</span>}
+        {subtitle && <span className="block truncate text-[13px] text-ink-muted">{subtitle}</span>}
       </span>
       {trailing}
     </>
   )
-  const cls = 'flex w-full items-center gap-3.5 rounded-2xl border border-line bg-white px-4 py-3.5'
+  const cls = 'flex w-full items-center gap-3.5 rounded-2xl border border-line bg-white px-4 py-3'
 
   return onClick ? (
     <button type="button" onClick={onClick} className={cls}>

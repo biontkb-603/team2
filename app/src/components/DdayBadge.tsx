@@ -16,7 +16,7 @@ const TONE: Record<Tone, string> = {
 // 표시만 담당한다. 어떤 tone/label을 쓸지는 D-day 계산 함수(F-02)가 정하고, 그 전에는 mock 값을 넘긴다.
 export default function DdayBadge({ tone, label }: Props) {
   return (
-    <span className={`inline-flex h-8 min-w-[52px] items-center justify-center rounded-full px-3 text-[13px] font-bold ${TONE[tone]}`}>
+    <span className={`inline-flex h-[30px] items-center justify-center rounded-full px-2.5 text-[13px] font-bold ${TONE[tone]}`}>
       {label}
     </span>
   )

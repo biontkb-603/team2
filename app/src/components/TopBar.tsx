@@ -15,7 +15,7 @@ export default function TopBar({ title, back, right }: Props) {
     <header className="flex h-[74px] shrink-0 items-center gap-1.5 px-6">
       {back && <BackButton fallback={back} className="-ml-2" />}
       <h1 className="flex-1 truncate text-[22px] font-bold">{title}</h1>
-      {right && <div className="-mr-2 flex items-center">{right}</div>}
+      {right && <div className="flex items-center">{right}</div>}
     </header>
   )
 }
