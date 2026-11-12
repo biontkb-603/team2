@@ -16,3 +16,10 @@ export function ddayInfo(daysLeft: number): { tone: DdayTone; label: string } {
   if (daysLeft === 0) return { tone: 'danger', label: '오늘까지' }
   return { tone: isExpiringSoon(daysLeft) ? 'danger' : 'ok', label: `D-${daysLeft}` }
 }
+
+/** 홈 임박 카드의 "1일 남음" 문구. 0일은 "오늘까지", 지난 것은 "기한 지남". */
+export function remainingLabel(daysLeft: number): string {
+  if (daysLeft < 0) return '기한 지남'
+  if (daysLeft === 0) return '오늘까지'
+  return `${daysLeft}일 남음`
+}

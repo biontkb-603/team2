@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import ComponentShowcase from './pages/ComponentShowcase'
+import Home from './pages/Home'
 import Login from './pages/Login'
 import Placeholder from './pages/Placeholder'
 import Signup from './pages/Signup'
@@ -11,6 +12,7 @@ import { SCREENS } from './screens'
 
 // 완성된 화면은 여기에 등록한다. 없는 화면은 임시 화면(Placeholder)이 대신한다.
 const PAGES: Record<string, ReactElement> = {
+  '/': <Home />,
   '/login': <Login />,
   '/signup': <Signup />,
   '/signup/account': <SignupAccount />,

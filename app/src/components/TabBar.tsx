@@ -26,7 +26,7 @@ export default function TabBar() {
           // 하위 화면(예: /fridge/list)에서도 해당 탭이 강조되도록 접두어로 비교한다.
           end={to === '/'}
           className={({ isActive }) =>
-            `flex h-[72px] flex-1 flex-col items-center justify-center gap-1 text-[11px] ${
+            `flex h-[78px] flex-1 flex-col items-center gap-[5px] pt-[15px] text-[11px] leading-[14px] ${
               isActive ? 'font-bold text-primary' : 'text-ink-nav'
             }`
           }

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { ddayInfo, EXPIRING_DAYS, isExpiringSoon } from './dday'
+import { ddayInfo, EXPIRING_DAYS, isExpiringSoon, remainingLabel } from './dday'
 
 describe('isExpiringSoon', () => {
   test('3일 이내는 임박(경계 포함)', () => {
@@ -25,5 +25,14 @@ describe('ddayInfo', () => {
   test('0일은 "오늘까지", 지나면 "기한 지남"', () => {
     expect(ddayInfo(0)).toEqual({ tone: 'danger', label: '오늘까지' })
     expect(ddayInfo(-1)).toEqual({ tone: 'expired', label: '기한 지남' })
+  })
+})
+
+describe('remainingLabel', () => {
+  test('"N일 남음", 0일은 "오늘까지", 지난 것은 "기한 지남"', () => {
+    expect(remainingLabel(1)).toBe('1일 남음')
+    expect(remainingLabel(3)).toBe('3일 남음')
+    expect(remainingLabel(0)).toBe('오늘까지')
+    expect(remainingLabel(-2)).toBe('기한 지남')
   })
 })

@@ -90,3 +90,17 @@ export const LockIcon = (p: SVGProps<SVGSVGElement>) => (
     <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" />
   </Base>
 )
+
+export const BellIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15L6 16.5Z" />
+    <path d="M10 21h4" />
+  </Base>
+)
+
+export const WarningIcon = (p: SVGProps<SVGSVGElement>) => (
+  <Base {...p}>
+    <path d="M12 3.5 21.5 20h-19L12 3.5Z" />
+    <path d="M12 10v4.5M12 17.4v.1" />
+  </Base>
+)
