@@ -10,7 +10,7 @@ export default function Layout() {
   return (
     <div className="relative mx-auto flex h-dvh w-full min-w-[360px] max-w-[430px] flex-col bg-white shadow-sm">
       <ToastProvider>
-        <main className="min-h-0 flex-1 overflow-y-auto">
+        <main className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           <Outlet />
         </main>
         {showTab && <TabBar />}

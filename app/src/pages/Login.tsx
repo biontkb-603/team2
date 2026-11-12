@@ -24,7 +24,7 @@ export default function Login() {
 
   return (
     <form
-      className="flex min-h-full flex-col px-7 pb-8 pt-[17px]"
+      className="flex flex-1 flex-col px-7 pb-8 pt-[17px]"
       onSubmit={(e) => {
         e.preventDefault()
         goHome()

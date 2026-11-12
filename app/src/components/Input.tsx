@@ -10,12 +10,16 @@ type Props = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   /** 입력창 안 오른쪽 내용(인증 타이머 03:00 등). type="password"면 눈 아이콘 토글이 대신 들어간다. */
   trailing?: ReactNode
   hint?: string
+  /** type="password"일 때 눈 아이콘(보기/숨기기)을 보일지. 시안에서 눈 아이콘이 없는 화면(회원가입)은 false. */
+  toggle?: boolean
+  /** md: 기본 / lg: 글자 20px, 안쪽 여백 24px (회원가입 1단계) */
+  size?: 'md' | 'lg'
 }
 
-export default function Input({ label, variant = 'outline', leading, trailing, hint, type = 'text', className = '', disabled, ...rest }: Props) {
+export default function Input({ label, variant = 'outline', leading, trailing, hint, toggle = true, size = 'md', type = 'text', className = '', disabled, ...rest }: Props) {
   const id = useId()
   const [shown, setShown] = useState(false)
-  const isPassword = type === 'password'
+  const isPassword = type === 'password' && toggle
 
   const box =
     variant === 'filled'
@@ -25,17 +29,17 @@ export default function Input({ label, variant = 'outline', leading, trailing, h
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={id} className="mb-2 block text-[14px] font-medium">
+        <label htmlFor={id} className="mb-2 block text-[14px] font-medium text-ink-muted">
           {label}
         </label>
       )}
-      <div className={`flex items-center gap-3 px-4 focus-within:border-primary ${box}`}>
+      <div className={`flex items-center gap-3 ${size === 'lg' ? 'px-6' : 'px-4'} focus-within:border-primary ${box}`}>
         {leading && <span className="text-ink-nav">{leading}</span>}
         <input
           id={id}
           type={isPassword && shown ? 'text' : type}
           disabled={disabled}
-          className="h-full min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-placeholder disabled:text-placeholder"
+          className={`h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-placeholder disabled:text-placeholder ${size === 'lg' ? 'text-[20px]' : 'text-[16px]'}`}
           {...rest}
         />
         {isPassword ? (

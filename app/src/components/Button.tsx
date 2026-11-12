@@ -25,7 +25,7 @@ export default function Button({ variant = 'primary', size = 'lg', full, classNa
   return (
     <button
       type={type}
-      className={`inline-flex shrink-0 items-center justify-center font-bold transition-colors disabled:cursor-not-allowed ${VARIANT[variant]} ${SIZE[size]} ${full ? 'w-full' : ''} ${className}`}
+      className={`inline-flex shrink-0 items-center whitespace-nowrap justify-center font-bold transition-colors disabled:cursor-not-allowed ${VARIANT[variant]} ${SIZE[size]} ${full ? 'w-full' : ''} ${className}`}
       {...rest}
     />
   )
